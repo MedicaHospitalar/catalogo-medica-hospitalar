@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo | Médica Hospitalar</title>
+  <meta name="description" content="Catálogo de medicamentos e material médico-hospitalar da Médica Hospitalar, em Maceió-AL. Monte sua lista e peça a cotação pelo WhatsApp.">
+  <link rel="icon" type="image/png" href="img/icone.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="topo__marca" href="./" aria-label="Médica Hospitalar - início">
+      <img src="img/logo.png" alt="Médica Hospitalar - Material e Medicamento Médico Hospitalar" class="topo__logo" width="451" height="274">
+    </a>
+    <label class="busca">
+      <span class="sr">Buscar produto</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="busca" type="search" placeholder="Buscar por nome, princípio ativo ou código" autocomplete="off">
+    </label>
+    <button class="botao-lista" id="abrirLista" aria-controls="lista" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+      <span>Minha cotação</span>
+      <b id="contador" class="contador" hidden>0</b>
+    </button>
+  </header>
+
+  <svg class="pulso" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 12H520l8-10 7 20 7-16 6 6h40l8-10 7 20 7-16 6 6H1200"/>
+  </svg>
+
+  <section class="chamada">
+    <h1>Catálogo de produtos</h1>
+    <p class="chamada__sub">Material e medicamento médico hospitalar</p>
+    <p class="chamada__texto">Encontre o que precisa, monte sua lista e receba a cotação pelo WhatsApp.</p>
+  </section>
+
+  <nav class="grupos" id="grupos" aria-label="Grupos de produtos"></nav>
+
+  <div class="corpo">
+    <aside class="filtros" id="filtros" aria-label="Filtrar por tipo">
+      <div class="filtros__cab">
+        <h2>Tipos de produto</h2>
+        <button class="link" id="limparTipo" hidden>Limpar</button>
+      </div>
+      <input id="buscaTipo" class="filtros__busca" type="search" placeholder="Filtrar tipos" aria-label="Filtrar tipos">
+      <ul id="tipos" class="tipos"></ul>
+    </aside>
+
+    <main class="conteudo">
+      <div class="resumo">
+        <p id="resumo" aria-live="polite"></p>
+        <button class="botao-filtros" id="abrirFiltros">Tipos de produto</button>
+      </div>
+      <ul id="produtos" class="produtos"></ul>
+      <button id="mais" class="mais" hidden>Mostrar mais</button>
+      <div id="vazio" class="vazio" hidden>
+        <p><strong>Nenhum produto encontrado.</strong></p>
+        <p>Tente outra palavra. Se não achar, adicione o item à cotação mesmo assim pelo campo “Item que não achei”.</p>
+      </div>
+    </main>
+  </div>
+
+  <aside class="lista" id="lista" aria-label="Minha cotação" aria-hidden="true">
+    <div class="lista__cab">
+      <h2>Minha cotação</h2>
+      <button class="fechar" id="fecharLista" aria-label="Fechar">×</button>
+    </div>
+    <div class="lista__corpo">
+      <ul id="itensLista" class="itens"></ul>
+      <p id="listaVazia" class="lista__vazia">Sua lista está vazia. Busque os produtos e toque em <b>Adicionar</b>.</p>
+
+      <form id="itemLivre" class="item-livre">
+        <label for="textoLivre">Item que não achei</label>
+        <div class="item-livre__linha">
+          <input id="textoLivre" placeholder="Ex.: luva nitrílica azul M" required>
+          <input id="qtdLivre" type="number" min="1" value="1" aria-label="Quantidade" required>
+          <button class="botao botao--sec">Incluir</button>
+        </div>
+      </form>
+
+      <fieldset class="dados">
+        <legend>Seus dados (opcional)</legend>
+        <label>Nome ou empresa<input id="cliNome" autocomplete="organization"></label>
+        <label>CNPJ ou CPF<input id="cliDoc" inputmode="numeric"></label>
+        <label>Observações<textarea id="cliObs" rows="2" placeholder="Prazo, entrega, marca preferida…"></textarea></label>
+      </fieldset>
+    </div>
+    <div class="lista__rodape">
+      <button class="botao botao--whats" id="enviar" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+      <div class="lista__acoes">
+        <button class="link" id="copiar" disabled>Copiar lista</button>
+        <button class="link link--perigo" id="esvaziar" disabled>Esvaziar</button>
+      </div>
+      <p class="aviso" id="avisoWhats" hidden>O número de WhatsApp ainda não foi configurado. Use “Copiar lista”.</p>
+    </div>
+  </aside>
+  <div class="veu" id="veu" hidden></div>
+
+  <footer class="rodape">
+    <p><strong data-config="empresa">Médica Hospitalar</strong> · <span data-config="razaoSocial"></span> · <span data-config="cidade"></span></p>
+    <p data-config="contato"></p>
+    <p class="rodape__nota">Os preços não aparecem no catálogo: a equipe de vendas envia os valores na resposta da sua cotação.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
