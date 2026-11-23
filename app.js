@@ -318,7 +318,7 @@
   });
 
   // ---------- início ----------
-  fetch('data/produtos.json')
+  fetch('produtos.json')
     .then((r) => r.json())
     .then((dadosProdutos) => {
       produtos = dadosProdutos.map((p) => ({ ...p, _t: ' ' + norm(p.t) + ' ', _n: ' ' + norm(`${p.c} ${p.t} | ${p.d}`) + ' ' }));
